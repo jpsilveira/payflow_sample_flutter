@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:payflow_flutter/modules/barcode_scanner/barcode_scanner_page.dart';
 import 'package:payflow_flutter/modules/home/home_page.dart';
 import 'package:payflow_flutter/modules/splash/splash_page.dart';
 
@@ -13,6 +14,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Pay Flow',
       theme: ThemeData(
+        primarySwatch: Colors.orange,
         primaryColor: AppColors.primary,
       ),
       initialRoute: "/splash",
@@ -20,6 +22,7 @@ class AppWidget extends StatelessWidget {
         "/splash": (context) => SplashPage(),
         "/home": (context) => HomePage(),
         "/login": (context) => LoginPage(),
+        "/barcode_scanner": (context) => BarcodeScannerPage(),
       }, //SplashPage(), //HomePage(),
     );
   }
