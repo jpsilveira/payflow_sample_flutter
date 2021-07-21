@@ -2,10 +2,16 @@ import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_ml_kit/google_ml_kit.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:payflow_flutter/modules/barcode_scanner/barcode_scanner_status.dart';
 
 class BarcodeScannerController {
-  BarcodeScannerStatus status = BarcodeScannerStatus();
+  final statusNotifier =
+      ValueNotifier<BarcodeScannerStatus>(BarcodeScannerStatus());
+
+  BarcodeScannerStatus get status => statusNotifier.value;
+  set status(BarcodeScannerStatus status) => statusNotifier.value = status;
+
   final barcodeScanner = GoogleMlKit.vision.barcodeScanner();
 
   void getAvailableCameras() async {
@@ -19,7 +25,9 @@ class BarcodeScannerController {
         ResolutionPreset.max,
         enableAudio: false,
       );
+      await cameraController.initialize();
       status = BarcodeScannerStatus.available(cameraController);
+      scanWithCamera();
     } catch (e) {
       status = BarcodeScannerStatus.error(e.toString());
     }
@@ -28,7 +36,7 @@ class BarcodeScannerController {
   void scanWithCamera() {
     Future.delayed(Duration(seconds: 10)).then((value) {
       if (status.cameraController != null) {
-        if (status.cameraController.value.isStreamingImages) {
+        if (status.cameraController!.value.isStreamingImages) {
           status.cameraController!.stopImageStream();
         }
       }
@@ -60,6 +68,13 @@ class BarcodeScannerController {
     } catch (e) {
       print("ERRO DA CAMERA $e");
     }
+  }
+
+  void scanWithImagePicker() async {
+    await status.cameraController!.stopImageStream();
+    final response = await ImagePicker().getImage(source: ImageSource.gallery);
+    final inputImage = InputImage.fromFilePath(response!.path);
+    scannerBarCode(inputImage);
   }
 
   void listenCamera() {
@@ -103,5 +118,13 @@ class BarcodeScannerController {
           print(e);
         }
       });
+  }
+
+  void dispose() {
+    statusNotifier.dispose();
+    barcodeScanner.close();
+    if (status.showCamera) {
+      status.cameraController!.dispose();
+    }
   }
 }
