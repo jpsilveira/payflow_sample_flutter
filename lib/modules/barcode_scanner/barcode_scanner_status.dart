@@ -24,7 +24,7 @@ class BarcodeScannerStatus {
 
   factory BarcodeScannerStatus.barcode(String barcode) => BarcodeScannerStatus(
         barcode: barcode,
-        stopScanner: false,
+        stopScanner: true,
       );
 
   bool get showCamera => isCameraAvailable && error.isEmpty;
