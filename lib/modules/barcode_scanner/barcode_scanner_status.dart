@@ -6,7 +6,6 @@ class BarcodeScannerStatus {
 
   BarcodeScannerStatus({
     this.isCameraAvailable = false,
-    // this.cameraController,
     this.error = '',
     this.barcode = '',
     this.stopScanner = false,

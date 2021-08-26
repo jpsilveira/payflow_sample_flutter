@@ -30,7 +30,6 @@ class BarcodeScannerController {
         enableAudio: false,
       );
       await cameraController!.initialize();
-      // status = BarcodeScannerStatus.available(cameraController);
       scanWithCamera();
       listenCamera();
     } catch (e) {
@@ -42,11 +41,6 @@ class BarcodeScannerController {
     status = BarcodeScannerStatus.available();
 
     Future.delayed(Duration(seconds: 20)).then((value) {
-      // if (status.cameraController != null) {
-      // if (status.cameraController!.value.isStreamingImages) {
-      //   status.cameraController!.stopImageStream();
-      // }
-      // }
       if (status.hasBarcode == false)
         status = BarcodeScannerStatus.error("Timeout da leitura do boleto");
     });
@@ -54,11 +48,6 @@ class BarcodeScannerController {
 
   Future<void> scannerBarCode(InputImage inputImage) async {
     try {
-      // if (status.cameraController != null) {
-      //   if (status.cameraController!.value.isStreamingImages) {
-      //     status.cameraController!.stopImageStream();
-      //   }
-      // }
       final barcodes = await barcodeScanner.processImage(inputImage);
       var barcode;
       for (Barcode item in barcodes) {
@@ -67,13 +56,9 @@ class BarcodeScannerController {
 
       if (barcode != null && status.barcode.isEmpty) {
         status = BarcodeScannerStatus.barcode(barcode);
-        // if (status.cameraController != null)
         cameraController!.dispose();
         await barcodeScanner.close();
       }
-      // else {
-      //   getAvailableCameras();
-      // }
       return;
     } catch (e) {
       print("ERRO DA CAMERA $e");
@@ -81,7 +66,6 @@ class BarcodeScannerController {
   }
 
   void scanWithImagePicker() async {
-    // await status.cameraController!.stopImageStream();
     final response = await ImagePicker().getImage(source: ImageSource.gallery);
     final inputImage = InputImage.fromFilePath(response!.path);
     scannerBarCode(inputImage);
@@ -123,7 +107,6 @@ class BarcodeScannerController {
 
             final inputImageCamera = InputImage.fromBytes(
                 bytes: bytes, inputImageData: inputImageData);
-            // await Future.delayed(Duration(seconds: 3));
             await scannerBarCode(inputImageCamera);
           } catch (e) {
             print(e);

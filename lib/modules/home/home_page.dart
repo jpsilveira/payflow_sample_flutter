@@ -72,19 +72,25 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.home),
               color: AppColors.primary,
             ),
-            Container(
-              width: 56,
-              height: 56,
-              decoration: BoxDecoration(
-                color: AppColors.primary,
-                borderRadius: BorderRadius.circular(5),
-              ),
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, "/barcode_scanner");
-                },
-                icon: Icon(Icons.add_box_outlined),
-                color: AppColors.background,
+            GestureDetector(
+              onTap: () {
+                // Navigator.pushNamed(context, "/barcode_scanner");
+                Navigator.pushNamed(context, "/insert_boleto");
+              },
+              child: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, "/barcode_scanner");
+                  },
+                  icon: Icon(Icons.add_box_outlined),
+                  color: AppColors.background,
+                ),
               ),
             ),
             IconButton(
