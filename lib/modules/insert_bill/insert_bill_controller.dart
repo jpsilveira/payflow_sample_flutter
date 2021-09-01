@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
+import 'package:payflow_flutter/shared/bill_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class InsertBillController {
   final formKey = GlobalKey<FormState>();
+  BillModel model = BillModel();
 
   String? validateName(String? value) =>
       value?.isEmpty ?? true ? 'O nome do boleto não pode ser vazio.' : null;
@@ -41,14 +44,34 @@ class InsertBillController {
     return null;
   }
 
-  void onChange() {
-    //Stopped here 010557
+  void onChange({
+    String? name,
+    String? dueDate,
+    double? value,
+    String? barcode,
+  }) {
+    model = model.copyWith(
+      name: name,
+      dueDate: dueDate,
+      value: value,
+      barcode: barcode,
+    );
   }
 
-  void createBill() {
+  Future<void> saveBill() async {
+    // try {
+    final instance = await SharedPreferences.getInstance();
+    final bills = instance.getStringList("bills") ?? <String>[];
+    bills.add(model.toJson());
+    await instance.setStringList("bills", bills);
+    return;
+    // } catch (e) {}
+  }
+
+  Future<void> createBill() async {
     final form = formKey.currentState;
     if (form!.validate()) {
-      return null;
+      return saveBill();
     }
   }
 }

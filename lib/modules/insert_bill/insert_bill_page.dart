@@ -74,21 +74,29 @@ class _InsertBillPageState extends State<InsertBillPage> {
                     InputTextWidget(
                       label: 'Nome do boleto',
                       icon: Icons.description_outlined,
-                      onChanged: (value) {},
                       validator: insertBillController.validateName,
+                      onChanged: (value) {
+                        insertBillController.onChange(name: value);
+                      },
                     ),
                     InputTextWidget(
                       textEditingController: dueDateInputTextController,
                       label: 'Vencimento',
                       icon: FontAwesomeIcons.timesCircle,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        insertBillController.onChange(dueDate: value);
+                      },
                       validator: insertBillController.validateDueDate,
                     ),
                     InputTextWidget(
                       textEditingController: moneyInputTextController,
                       label: 'Valor',
                       icon: FontAwesomeIcons.wallet,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        insertBillController.onChange(
+                          value: moneyInputTextController.numberValue,
+                        );
+                      },
                       validator: (_) => insertBillController
                           .validateMoney(moneyInputTextController.numberValue),
                     ),
@@ -96,7 +104,11 @@ class _InsertBillPageState extends State<InsertBillPage> {
                       textEditingController: barcodeInputTextController,
                       label: 'Código',
                       icon: FontAwesomeIcons.barcode,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        insertBillController.onChange(
+                          barcode: value,
+                        );
+                      },
                       validator: insertBillController.validateBarcode,
                     ),
                   ],
@@ -113,8 +125,9 @@ class _InsertBillPageState extends State<InsertBillPage> {
           Navigator.pop(context);
         },
         secondaryLabel: 'Cadastrar',
-        secondaryOnPressed: () {
-          insertBillController.createBill();
+        secondaryOnPressed: () async {
+          await insertBillController.createBill();
+          Navigator.pop(context);
         },
       ),
     );
