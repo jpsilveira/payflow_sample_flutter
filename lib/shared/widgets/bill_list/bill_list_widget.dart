@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:payflow_flutter/models/bill_model.dart';
 import 'package:payflow_flutter/shared/widgets/bill_list/bill_list_controller.dart';
 import 'package:payflow_flutter/shared/widgets/bill_tile/bill_tile_widget.dart';
 
@@ -13,9 +14,11 @@ class _BillListWidgetState extends State<BillListWidget> {
   final billListController = BillListController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children:
-          billListController.bills.map((e) => BillTileWidget(data: e)).toList(),
+    return ValueListenableBuilder<List<BillModel>>(
+      valueListenable: billListController.billsNotifier,
+      builder: (_, bills, __) => Column(
+        children: bills.map((e) => BillTileWidget(data: e)).toList(),
+      ),
     );
   }
 }

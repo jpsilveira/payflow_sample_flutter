@@ -17,9 +17,9 @@ class InsertBillController {
       return 'O código não pode ser vazio.';
     }
     int valueSize = value?.length ?? 0;
-    if (valueSize < 44 || valueSize > 48) {
-      return 'O código deve possuir entre 44 e 48 dígitos.';
-    }
+    // if (valueSize < 44 || valueSize > 48) {
+    //   return 'O código deve possuir entre 44 e 48 dígitos.';
+    // }
   }
 
   //

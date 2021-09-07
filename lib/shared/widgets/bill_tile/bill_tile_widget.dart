@@ -9,12 +9,7 @@ class BillTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: EdgeInsets.only(
-        left: 10,
-        right: 10,
-        top: 0,
-        bottom: 0,
-      ),
+      contentPadding: EdgeInsets.zero,
       title: Text(
         data.name!,
         style: AppText.titleListTile,
