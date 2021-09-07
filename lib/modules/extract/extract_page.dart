@@ -1,43 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:payflow_flutter/models/bill_model.dart';
 import 'package:payflow_flutter/shared/themes/app_colors.dart';
 import 'package:payflow_flutter/shared/themes/app_text.dart';
-import 'package:payflow_flutter/shared/widgets/bill_info/bill_info_widget.dart';
 import 'package:payflow_flutter/shared/widgets/bill_list/bill_list_controller.dart';
 import 'package:payflow_flutter/shared/widgets/bill_list/bill_list_widget.dart';
 
-class MyBillsPage extends StatefulWidget {
-  const MyBillsPage({Key? key}) : super(key: key);
+class ExtractPage extends StatefulWidget {
+  const ExtractPage({Key? key}) : super(key: key);
 
   @override
-  State<MyBillsPage> createState() => _MyBillsPageState();
+  State<ExtractPage> createState() => _ExtractPageState();
 }
 
-class _MyBillsPageState extends State<MyBillsPage> {
+class _ExtractPageState extends State<ExtractPage> {
   final billListController = BillListController();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            Container(
-              color: AppColors.primary,
-              height: 40,
-              width: double.maxFinite,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ValueListenableBuilder<List<BillModel>>(
-                valueListenable: billListController.billsNotifier,
-                builder: (_, bills, __) => BillInfoWidget(
-                  size: bills.length,
-                ),
-              ),
-            ),
-          ],
-        ),
         Padding(
           padding: const EdgeInsets.only(
             top: 24,
@@ -47,7 +27,7 @@ class _MyBillsPageState extends State<MyBillsPage> {
           child: Row(
             children: [
               Text(
-                "Meus Boletos",
+                "Meus extratos",
                 style: AppText.titleBoldHeading,
               ),
             ],

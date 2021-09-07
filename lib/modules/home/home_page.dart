@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:payflow_flutter/modules/extract/extract_page.dart';
 import 'package:payflow_flutter/modules/my_bills/my_bills_page.dart';
 import 'package:payflow_flutter/shared/themes/app_colors.dart';
 import 'package:payflow_flutter/shared/themes/app_text.dart';
@@ -19,9 +20,7 @@ class _HomePageState extends State<HomePage> {
     //   child: BillListWidget(),
     // ),
     MyBillsPage(),
-    Container(
-      color: Colors.blue,
-    ),
+    ExtractPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -72,7 +71,9 @@ class _HomePageState extends State<HomePage> {
                 setState(() {});
               },
               icon: Icon(Icons.home),
-              color: AppColors.primary,
+              color: homeController.currentPage == 0
+                  ? AppColors.primary
+                  : AppColors.body,
             ),
             GestureDetector(
               onTap: () {
@@ -101,7 +102,9 @@ class _HomePageState extends State<HomePage> {
                 setState(() {});
               },
               icon: Icon(Icons.description_outlined),
-              color: AppColors.body,
+              color: homeController.currentPage == 1
+                  ? AppColors.primary
+                  : AppColors.body,
             ),
           ],
         ),

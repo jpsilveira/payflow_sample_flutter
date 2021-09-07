@@ -4,18 +4,19 @@ import 'package:payflow_flutter/shared/widgets/bill_list/bill_list_controller.da
 import 'package:payflow_flutter/shared/widgets/bill_tile/bill_tile_widget.dart';
 
 class BillListWidget extends StatefulWidget {
-  const BillListWidget({Key? key}) : super(key: key);
+  final BillListController billListController;
+  BillListWidget({Key? key, required this.billListController})
+      : super(key: key);
 
   @override
   _BillListWidgetState createState() => _BillListWidgetState();
 }
 
 class _BillListWidgetState extends State<BillListWidget> {
-  final billListController = BillListController();
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<List<BillModel>>(
-      valueListenable: billListController.billsNotifier,
+      valueListenable: widget.billListController.billsNotifier,
       builder: (_, bills, __) => Column(
         children: bills.map((e) => BillTileWidget(data: e)).toList(),
       ),

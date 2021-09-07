@@ -9,5 +9,6 @@ class AppColors {
   static final input = Color(0xFFB1B0B8);
   static final stroke = Color(0xFFE3E3E6);
   static final shape = Color(0xFFFAFAFC);
+  static final secondary = Color(0xFF585666);
   static final background = Color(0xFFFFFFFF);
 }
