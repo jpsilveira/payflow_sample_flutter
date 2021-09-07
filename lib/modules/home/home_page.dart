@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:payflow_flutter/models/user_model.dart';
 import 'package:payflow_flutter/modules/extract/extract_page.dart';
 import 'package:payflow_flutter/modules/my_bills/my_bills_page.dart';
 import 'package:payflow_flutter/shared/themes/app_colors.dart';
@@ -7,7 +8,8 @@ import 'package:payflow_flutter/shared/themes/app_text.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  final UserModel user;
+  const HomePage({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -15,13 +17,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final homeController = HomeController();
-  final pages = [
-    // Container(
-    //   child: BillListWidget(),
-    // ),
-    MyBillsPage(),
-    ExtractPage(),
-  ];
+  // final pages = [
+  //   MyBillsPage(
+  //     key: UniqueKey(),
+  //   ),
+  //   ExtractPage(
+  //     key: UniqueKey(),
+  //   ),
+  // ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                   style: AppText.titleRegular,
                   children: [
                     TextSpan(
-                      text: "JP",
+                      text: "${widget.user.name}",
                       style: AppText.titleBoldBackground,
                     )
                   ],
@@ -52,14 +55,25 @@ class _HomePageState extends State<HomePage> {
                 height: 48,
                 width: 48,
                 decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(5)),
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(5),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.user.photoURL!),
+                  ),
+                ),
               ),
             ),
           ),
         ),
       ),
-      body: pages[homeController.currentPage],
+      body: [
+        MyBillsPage(
+          key: UniqueKey(),
+        ),
+        ExtractPage(
+          key: UniqueKey(),
+        ),
+      ][homeController.currentPage],
       bottomNavigationBar: Container(
         height: 90,
         child: Row(
@@ -76,9 +90,9 @@ class _HomePageState extends State<HomePage> {
                   : AppColors.body,
             ),
             GestureDetector(
-              onTap: () {
-                // Navigator.pushNamed(context, "/barcode_scanner");
-                Navigator.pushNamed(context, "/insert_bill");
+              onTap: () async {
+                await Navigator.pushNamed(context, "/barcode_scanner");
+                setState(() {});
               },
               child: Container(
                 width: 56,
@@ -99,7 +113,6 @@ class _HomePageState extends State<HomePage> {
             IconButton(
               onPressed: () {
                 homeController.setPage(1);
-                setState(() {});
               },
               icon: Icon(Icons.description_outlined),
               color: homeController.currentPage == 1

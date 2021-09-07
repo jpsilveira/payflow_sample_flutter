@@ -4,6 +4,7 @@ import 'package:payflow_flutter/modules/barcode_scanner/barcode_scanner_page.dar
 import 'package:payflow_flutter/modules/home/home_page.dart';
 import 'package:payflow_flutter/modules/splash/splash_page.dart';
 
+import 'models/user_model.dart';
 import 'modules/insert_bill/insert_bill_page.dart';
 import 'modules/login/login_page.dart';
 import 'shared/themes/app_colors.dart';
@@ -30,10 +31,16 @@ class AppWidget extends StatelessWidget {
       initialRoute: "/splash",
       routes: {
         "/splash": (context) => SplashPage(),
-        "/home": (context) => HomePage(),
+        "/home": (context) => HomePage(
+              user: ModalRoute.of(context)!.settings.arguments as UserModel,
+            ),
         "/login": (context) => LoginPage(),
         "/barcode_scanner": (context) => BarcodeScannerPage(),
-        "/insert_bill": (context) => InsertBillPage(),
+        "/insert_bill": (context) => InsertBillPage(
+              barcode: ModalRoute.of(context) != null
+                  ? ModalRoute.of(context)!.settings.arguments.toString()
+                  : null,
+            ),
       },
     );
   }

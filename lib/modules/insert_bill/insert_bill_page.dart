@@ -105,9 +105,7 @@ class _InsertBillPageState extends State<InsertBillPage> {
                       label: 'Código',
                       icon: FontAwesomeIcons.barcode,
                       onChanged: (value) {
-                        insertBillController.onChange(
-                          barcode: value,
-                        );
+                        insertBillController.onChange(barcode: value);
                       },
                       validator: insertBillController.validateBarcode,
                     ),
@@ -128,6 +126,7 @@ class _InsertBillPageState extends State<InsertBillPage> {
         secondaryOnPressed: () async {
           await insertBillController.createBill();
           Navigator.pop(context);
+          setState(() {});
         },
       ),
     );

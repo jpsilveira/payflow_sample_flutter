@@ -18,59 +18,61 @@ class _MyBillsPageState extends State<MyBillsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          children: [
-            Container(
-              color: AppColors.primary,
-              height: 40,
-              width: double.maxFinite,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: ValueListenableBuilder<List<BillModel>>(
-                valueListenable: billListController.billsNotifier,
-                builder: (_, bills, __) => BillInfoWidget(
-                  size: bills.length,
-                ),
-              ),
-            ),
-          ],
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            top: 24,
-            left: 24,
-            right: 24,
-          ),
-          child: Row(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Stack(
             children: [
-              Text(
-                "Meus Boletos",
-                style: AppText.titleBoldHeading,
+              Container(
+                color: AppColors.primary,
+                height: 40,
+                width: double.maxFinite,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: ValueListenableBuilder<List<BillModel>>(
+                  valueListenable: billListController.billsNotifier,
+                  builder: (_, bills, __) => BillInfoWidget(
+                    size: bills.length,
+                  ),
+                ),
               ),
             ],
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 24,
-            horizontal: 24,
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 24,
+              left: 24,
+              right: 24,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "Meus Boletos",
+                  style: AppText.titleBoldHeading,
+                ),
+              ],
+            ),
           ),
-          child: Divider(
-            color: AppColors.stroke,
-            thickness: 1,
-            height: 1,
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              vertical: 24,
+              horizontal: 24,
+            ),
+            child: Divider(
+              color: AppColors.stroke,
+              thickness: 1,
+              height: 1,
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: BillListWidget(
-            billListController: billListController,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: BillListWidget(
+              billListController: billListController,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

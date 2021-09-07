@@ -16,10 +16,11 @@ class InsertBillController {
     if (value?.isEmpty == true) {
       return 'O código não pode ser vazio.';
     }
-    int valueSize = value?.length ?? 0;
+    // int valueSize = value?.length ?? 0;
     // if (valueSize < 44 || valueSize > 48) {
     //   return 'O código deve possuir entre 44 e 48 dígitos.';
     // }
+    return null;
   }
 
   //
@@ -64,6 +65,8 @@ class InsertBillController {
     final bills = instance.getStringList("bills") ?? <String>[];
     bills.add(model.toJson());
     await instance.setStringList("bills", bills);
+    print(bills);
+    //parei aqui. Só salva barcode se clicar e inserir algo no campo. Não mostra o resultado salvo nas telas. 021616
     return;
     // } catch (e) {}
   }
@@ -71,7 +74,7 @@ class InsertBillController {
   Future<void> createBill() async {
     final form = formKey.currentState;
     if (form!.validate()) {
-      return saveBill();
+      return await saveBill();
     }
   }
 }
