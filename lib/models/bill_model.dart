@@ -8,7 +8,8 @@ class BillModel {
 
   String toJson() => json.encode(toMap());
 
-  // factory BillModel.fromJson(String source) => BillModel.fromMap(Map<String, dynamic>);
+  factory BillModel.fromJson(String source) =>
+      BillModel.fromMap(json.decode(source));
 
 //<editor-fold desc="Data Methods">
 

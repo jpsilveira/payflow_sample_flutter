@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:payflow_flutter/shared/bill_model.dart';
+import 'package:payflow_flutter/models/bill_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class InsertBillController {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:payflow_flutter/shared/themes/app_colors.dart';
 import 'package:payflow_flutter/shared/themes/app_text.dart';
+import 'package:payflow_flutter/shared/widgets/bill_list/bill_list_widget.dart';
 
 import 'home_controller.dart';
 
@@ -15,7 +16,8 @@ class _HomePageState extends State<HomePage> {
   final homeController = HomeController();
   final pages = [
     Container(
-      color: Colors.red,
+      // color: Colors.red,
+      child: BillListWidget(),
     ),
     Container(
       color: Colors.blue,
